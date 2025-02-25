@@ -1,9 +1,13 @@
+(*
+coq_makefile -f _CoqProject -o CoqMakefile
+make -f CoqMakefile
+*)
 
 From Coq Require Import Lists.List.
 From Coq Require Import Permutation.
 Import ListNotations.
 
-Require Import check_unify.
+From PS Require Import PermSolver.
 
 
 (* this example shows why you can't necessarily remove_common before trying all the subst's *)
