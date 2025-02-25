@@ -965,85 +965,8 @@ Ltac build_env_and_go_fd A maxd :=
                                       [ apply tenv_perm_forall;  repeat (apply tp_cons; auto); apply tp_nil | reflexivity ])))
   end.
 
-
 Ltac perm_solver_fd maxd :=
   (*idtac ""; idtac "perm_solver";*)
   match goal with
   |- (@Permutation ?A _ _) => split_all_hyps; build_env_and_go_fd A maxd
   end.
-
-
-Goal forall A (pq:list A) pqsm pqlg D Dsm Dlg R L x y,
-    Permutation pq (x :: pqsm ++ rev pqlg) ->
-    Permutation (rev pqlg) pqlg ->
-    Permutation (Dsm ++ Dlg) D ->
-    Permutation R (pqsm ++ y :: Dsm) ->
-    Permutation L (Dlg ++ pqlg) ->
-    Permutation (R ++ x :: L) (y :: D ++ pq).
-(*
-  (R ++ x :: L) (y :: D ++ pq)
-  (pqsm ++ y :: Dsm ++ x :: Dlg ++ pqlg) (y :: Dsm ++ Dlg ++ x :: pqsm ++ rev pqlg)
-  (pqsm ++ Dsm ++ Dlg ++ pqlg) (Dsm ++ Dlg ++ pqsm ++ pqlg)
-*)
-
-Proof.
-  intros.
-  perm_solver.
-(*  perm_solver_fd 10.*)
-Qed.
-
-
-
-
-  (* now: 
-  match H: and 
-  cut (Permutation (nattree_to_list_flat (branch (leaf 1) (leaf 0)) env)
-                   (nattree_to_list_flat (branch (leaf 3) (branch (leaf 2) (leaf 0))) env)); [ | auto ].
-      clear H.
-      and intro H when all done with all the hypotheses.
-  *)
-(*
-
-  pose (env := add 1 pq
-        (add 2 pqsm (add 3 pqlg (add 4 D (add 5 Dsm (add 6 Dlg (add 7 R (add 8 L (add 9 (rev pqlg) (empty _)))))))))).
-
-  replace (pqsm ++ rev pqlg) with (nattree_to_list_flat (branch (leaf 2) (leaf 9)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (Dsm ++ Dlg) with (nattree_to_list_flat (branch (leaf 5) (leaf 6)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (R ++ L) with (nattree_to_list_flat (branch (leaf 7) (leaf 8)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (D ++ pq) with (nattree_to_list_flat (branch (leaf 4) (leaf 1)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (pqsm ++ Dsm) with (nattree_to_list_flat (branch (leaf 2) (leaf 5)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (Dlg ++ pqlg) with (nattree_to_list_flat (branch (leaf 6) (leaf 3)) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; rewrite app_nil_r; auto. }
-  replace (rev pqlg) with (nattree_to_list_flat (leaf 9) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-  replace pqlg with (nattree_to_list_flat (leaf 3) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-  replace pq with (nattree_to_list_flat (leaf 1) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-  replace D with (nattree_to_list_flat (leaf 4) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-  replace R with (nattree_to_list_flat (leaf 7) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-  replace L with (nattree_to_list_flat (leaf 8) env) in *; auto.
-  2:{ unfold nattree_to_list; simpl; auto using app_nil_r. }
-
-  pose (tenv := [
-          ( (leaf 1), (branch (leaf 2) (leaf 9)) ) ;
-          ( (leaf 9), (leaf 3) ) ;
-          ( (branch (leaf 5) (leaf 6)), (leaf 4) ) ;
-          ( (leaf 7), (branch (leaf 2) (leaf 5)) ) ;
-          ( (leaf 8), (branch (leaf 6) (leaf 3)) )
-  ]).
-
-  apply final with tenv; auto.
-  apply tenv_perm_forall.
-  repeat constructor; auto.
-
-Qed.
-*)
-

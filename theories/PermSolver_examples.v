@@ -103,6 +103,26 @@ Qed.
 
 
 
+Goal forall A (pq:list A) pqsm pqlg D Dsm Dlg R L x y,
+    Permutation pq (x :: pqsm ++ rev pqlg) ->
+    Permutation (rev pqlg) pqlg ->
+    Permutation (Dsm ++ Dlg) D ->
+    Permutation R (pqsm ++ y :: Dsm) ->
+    Permutation L (Dlg ++ pqlg) ->
+    Permutation (R ++ x :: L) (y :: D ++ pq).
+(*
+  (R ++ x :: L) (y :: D ++ pq)
+  (pqsm ++ y :: Dsm ++ x :: Dlg ++ pqlg) (y :: Dsm ++ Dlg ++ x :: pqsm ++ rev pqlg)
+  (pqsm ++ Dsm ++ Dlg ++ pqlg) (Dsm ++ Dlg ++ pqsm ++ pqlg)
+*)
+
+Proof.
+  intros.
+  perm_solver.
+(*  perm_solver_fd 10.*)
+Qed.
+
+
 
 (* ====== FROM https://github.com/foreverbell/permutation-solver/blob/master/Examples.v ===== *)
 
