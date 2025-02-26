@@ -1,3 +1,10 @@
+(*****************************************)
+(*                                       *)
+(* Copyright (c) 2025 Nadeem Abdul Hamid *)
+(* Distributed under terms of the        *)
+(* MIT License. (See LICENSE file)       *)
+(*                                       *)
+(*****************************************)
 
 Require Import Nat.
 Require Import PeanoNat.

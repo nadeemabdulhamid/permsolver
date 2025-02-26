@@ -1,4 +1,14 @@
+(*****************************************)
+(*                                       *)
+(* Copyright (c) 2025 Nadeem Abdul Hamid *)
+(* Distributed under terms of the        *)
+(* MIT License. (See LICENSE file)       *)
+(*                                       *)
+(*****************************************)
+
 (*
+To compile:
+
 coq_makefile -f _CoqProject -o CoqMakefile
 make -f CoqMakefile
 *)
@@ -7,7 +17,7 @@ From Coq Require Import Lists.List.
 From Coq Require Import Permutation.
 Import ListNotations.
 
-From PS Require Import PermSolver.
+Require Import PermSolver.
 
 
 Check (refl_equal : depths [0; 0; 1; 1; 2; 2; 3; 3] = [2; 4; 6; 8]).
