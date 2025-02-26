@@ -10,6 +10,8 @@ Import ListNotations.
 From PS Require Import PermSolver.
 
 
+Check (refl_equal : depths [0; 0; 1; 1; 2; 2; 3; 3] = [2; 4; 6; 8]).
+
 (* this example shows why you can't necessarily remove_common before trying all the subst's *)
 Check (refl_equal : check_unify [([1; 0], [3; 2]); ([0], [4; 2])]
                   [1; 4; 2] 
@@ -21,6 +23,11 @@ Compute
                   [1; 4; 2] 
                   [3; 2]
                   false).
+
+Check (refl_equal : check_unify_fd 4 [([1; 0], [3; 2]); ([0], [4; 2])]
+[1; 4; 2; 1; 4; 2] 
+[3; 2; 3; 2] = true).
+
 
 
 (* multiple substitutions necessary? *)
@@ -359,4 +366,14 @@ Goal forall A (p0 p1 p2 p3 p4:list A),
 intros.
 perm_solver_fd 10.
 Qed.
+
+Check (refl_equal : check_unify_depth 5 [([1; 0], [3; 2]); ([0], [4; 2])]
+                    [1; 4; 2; 1; 4; 2]   (* lft *)
+                    [3; 2; 3; 2]         (* rgt *)
+                    true = true).
+
+Compute
+let env := [([1; 0], [3; 2]); ([0], [4; 2]); ([1; 2], [3; 3])]
+ in check_unify_depth 5 env [1; 4; 2; 1; 4; 2] [3; 2; 3; 2] true.
+
 

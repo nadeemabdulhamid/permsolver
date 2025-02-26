@@ -129,16 +129,6 @@ Fixpoint check_unify_depth (depth:nat)
     end
   end.
 
-Check (refl_equal : check_unify_depth 5 [([1; 0], [3; 2]); ([0], [4; 2])]
-                    [1; 4; 2; 1; 4; 2]   (* lft *)
-                    [3; 2; 3; 2]         (* rgt *)
-                    true = true).
-
-Compute
-let env := [([1; 0], [3; 2]); ([0], [4; 2]); ([1; 2], [3; 3])]
- in check_unify_depth 5 env [1; 4; 2; 1; 4; 2] [3; 2; 3; 2] true.
-
-
 
 (* Produce quartiles of the length of the given list. That is, produce a
    4-tuple with numbers that are |env|/4, |env|/2, 3|env|/4, and |env|.
@@ -162,8 +152,6 @@ Fixpoint depths {A} (env: list A) : (list nat) :=  (* produces 1/4, 1/2, 3/4, 1.
                         | _ => [0; 0; 0; 0]
                         end
   end.
-
-Check (refl_equal : depths [0; 0; 1; 1; 2; 2; 3; 3] = [2; 4; 6; 8]).
 
 
 (* Perform iterative deepening search with check_unify_depth based on the `depths` given.
@@ -192,10 +180,6 @@ Definition check_unify_fd (maxd:nat)
                       (env: list (list nat * list nat))
                       (cs ds: list nat) : bool :=
   check_unify_ids [maxd] env cs ds true.
-
-Check (refl_equal : check_unify_fd 4 [([1; 0], [3; 2]); ([0], [4; 2])]
-                  [1; 4; 2; 1; 4; 2] 
-                  [3; 2; 3; 2] = true).
 
 
 
