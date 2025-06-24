@@ -14,7 +14,6 @@ Import ListNotations.
 
 From Coq Require Import Bool.Bool.
 
-Require Import Lia.
 Require Import FMaps FMapFacts.
 Module Import NatMap := FMapList.Make(Nat_as_OT).
 Module Import NatMapFacts := FMapFacts.WFacts_fun Nat_as_OT NatMap.
@@ -471,18 +470,18 @@ Proof.
   {
     destruct H1 as [ Hlft | Hrgt ]; rewrite H.
     rewrite Hlft in *.
-    rewrite length_app, length_rev, H0; simpl; lia.
+    rewrite length_app, length_rev, H0; simpl. auto with *.
     rewrite <- H.
     apply (IHenv' env ((e1,e2)::pref) target (S cur) s); auto.
     simpl.
     rewrite <- app_assoc; auto.
-    simpl; lia.
+    simpl; auto with *.
   }
 
   apply (IHenv' env ((e1,e2)::pref) target (S cur) s); auto.
   simpl.
   rewrite <- app_assoc; auto.
-  simpl; lia.
+  simpl; auto with *.
 Qed.
 
 
