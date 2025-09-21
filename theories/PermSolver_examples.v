@@ -17,7 +17,7 @@ From Coq Require Import Lists.List.
 From Coq Require Import Permutation.
 Import ListNotations.
 
-Require Import PermSolver.
+From PS Require Import PermSolver.
 
 
 Check (refl_equal : depths [0; 0; 1; 1; 2; 2; 3; 3] = [2; 4; 6; 8]).
@@ -121,6 +121,18 @@ Goal
     Permutation (e ++ f ++ g ++ a) d.
 intros; perm_solver.
 Qed.
+
+Lemma s1 :
+    forall (a b c d e f g h : list nat),
+    Permutation (a ++ b) c ->
+    Permutation d c ->
+    Permutation (e ++ f) h ->
+    Permutation (g ++ h) b ->
+    Permutation (e ++ f ++ g ++ a) d.
+intros; perm_solver.
+Qed.
+
+Print s1.
 
 
 

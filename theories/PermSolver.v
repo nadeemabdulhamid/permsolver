@@ -7,7 +7,7 @@
 (*****************************************)
 
 Require Import Nat.
-Require Import PeanoNat.
+Require PeanoNat.
 From Coq Require Import Lists.List.
 From Coq Require Import Permutation.
 Import ListNotations.
@@ -349,6 +349,13 @@ Proof.
 Qed.  
 
 
+Lemma eqb_eq : forall (a b:nat),   (* did this disappear or move in Rocq 9.0 ?*)
+  (a =? b = true) -> a = b.
+Proof.
+  induction a; simpl;
+  destruct b; auto; try discriminate.
+Qed.
+
 Lemma find_remove_perm :
     forall c ds n,
         List.find (Nat.eqb c) ds = Some n ->
@@ -358,7 +365,7 @@ Proof.
     inversion Hf.
     simpl in *.
     destruct (c =? d) eqn:Hcd.
-    apply Nat.eqb_eq in Hcd; replace d with c in *; auto.
+    apply eqb_eq in Hcd; replace d with c in *; auto.
     apply perm_trans with (d :: c :: remove_first c ds); auto.
     apply perm_skip. apply IH with n; auto.
     apply perm_swap; auto.
